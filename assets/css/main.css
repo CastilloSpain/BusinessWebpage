@@ -1596,6 +1596,14 @@ section,
   margin-right: 5px;
 }
 
+/* hide slider buttons in full view of all 3 team members */
+@media (min-width: 768px) {
+  .team .slider-nav a.js-custom-prev,
+  .team .slider-nav a.js-custom-next {
+    display: none;
+  }
+}
+
 /*--------------------------------------------------------------
 # Contact Section
 --------------------------------------------------------------*/
