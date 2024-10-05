@@ -155,11 +155,16 @@ h6 {
 
 .header .logo {
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
 
 .header .logo img {
   max-height: 36px;
   margin-right: 8px;
+  width: 60px;
+  height: auto;
 }
 
 .header .logo h1 {
@@ -1288,9 +1293,9 @@ section,
 }
 
 /*--------------------------------------------------------------
-# Pricing Section
+# Proposals Section
 --------------------------------------------------------------*/
-.pricing .pricing-item {
+.proposals .proposals-item {
   background-color: var(--surface-color);
   box-shadow: 0 3px 20px -2px rgba(0, 0, 0, 0.1);
   border-top: 4px solid var(--background-color);
@@ -1299,13 +1304,13 @@ section,
   border-radius: 5px;
 }
 
-.pricing h3 {
+.proposals h3 {
   font-weight: 600;
   margin-bottom: 15px;
   font-size: 20px;
 }
 
-.pricing h4 {
+.proposals h4 {
   color: var(--accent-color);
   font-size: 48px;
   font-weight: 400;
@@ -1313,16 +1318,16 @@ section,
   margin-bottom: 0;
 }
 
-.pricing h4 sup {
+.proposals h4 sup {
   font-size: 28px;
 }
 
-.pricing h4 span {
+.proposals h4 span {
   color: color-mix(in srgb, var(--default-color), transparent 50%);
   font-size: 18px;
 }
 
-.pricing ul {
+.proposals ul {
   padding: 20px 0;
   list-style: none;
   color: color-mix(in srgb, var(--default-color), transparent 30%);
@@ -1330,31 +1335,31 @@ section,
   line-height: 20px;
 }
 
-.pricing ul li {
+.proposals ul li {
   padding: 10px 0;
   display: flex;
   align-items: center;
 }
 
-.pricing ul i {
+.proposals ul i {
   color: #059652;
   font-size: 24px;
   padding-right: 3px;
 }
 
-.pricing ul .na {
+.proposals ul .na {
   color: color-mix(in srgb, var(--default-color), transparent 60%);
 }
 
-.pricing ul .na i {
+.proposals ul .na i {
   color: color-mix(in srgb, var(--default-color), transparent 60%);
 }
 
-.pricing ul .na span {
+.proposals ul .na span {
   text-decoration: line-through;
 }
 
-.pricing .buy-btn {
+.proposals .buy-btn {
   color: var(--accent-color);
   display: inline-block;
   padding: 8px 35px 10px 35px;
@@ -1367,36 +1372,36 @@ section,
   border: 1px solid var(--accent-color);
 }
 
-.pricing .buy-btn:hover {
+.proposals .buy-btn:hover {
   background: var(--accent-color);
   color: var(--contrast-color);
 }
 
-.pricing .featured {
+.proposals .featured {
   border-top-color: var(--accent-color);
 }
 
-.pricing .featured .buy-btn {
+.proposals .featured .buy-btn {
   background: var(--accent-color);
   color: var(--contrast-color);
 }
 
 @media (max-width: 992px) {
-  .pricing .box {
+  .proposals .box {
     max-width: 60%;
     margin: 0 auto 30px auto;
   }
 }
 
 @media (max-width: 767px) {
-  .pricing .box {
+  .proposals .box {
     max-width: 80%;
     margin: 0 auto 30px auto;
   }
 }
 
 @media (max-width: 420px) {
-  .pricing .box {
+  .proposals .box {
     max-width: 100%;
     margin: 0 auto 30px auto;
   }
@@ -1589,6 +1594,14 @@ section,
 
 .team .slider-nav a:first-child {
   margin-right: 5px;
+}
+
+/* hide slider buttons in full view of all 3 team members */
+@media (min-width: 768px) {
+  .team .slider-nav a.js-custom-prev,
+  .team .slider-nav a.js-custom-next {
+    display: none;
+  }
 }
 
 /*--------------------------------------------------------------
