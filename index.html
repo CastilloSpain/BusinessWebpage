@@ -397,25 +397,25 @@
                 <p>1615 Seegar St, Dallas, TX 75215</p>
               </div>
             </div><!-- End Info Item -->
-
+            
             <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-              <a href="tel:+1234567890">
+              <a class="d-flex" href="tel:+1234567890">
                 <i class="bi bi-telephone flex-shrink-0"></i>
+                <div>
+                  <h3>Call Us</h3>
+                  <p>+1 (123) 456-7890</p>
+                </div>
               </a>
-              <div>
-                <h3>Call Us</h3>
-                <p>+1 (123) 456-7890</p>
-              </div>
             </div><!-- End Info Item -->
 
             <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
-            <a href="mailto:castillorealestategroupholding@gmail.com">
-              <i class="bi bi-envelope flex-shrink-0"></i>
-            </a>
-              <div>
-                <h3>Email Us</h3>
-                <p>castillorealestategroupholding@gmail.com</p>
-              </div>
+              <a class="d-flex" href="mailto:castillorealestategroupholding@gmail.com">
+                <i class="bi bi-envelope flex-shrink-0"></i>
+                <div>
+                  <h3>Email Us</h3>
+                  <p>castillorealestategroupholding@gmail.com</p>
+                </div>
+              </a>
             </div><!-- End Info Item -->
 
           </div>
@@ -482,7 +482,8 @@
             <li><i class="bi bi-chevron-right"></i> <a href="index.html">Home</a></li>
             <li><i class="bi bi-chevron-right"></i> <a href="#about">About us</a></li>
             <li><i class="bi bi-chevron-right"></i> <a href="#proposals">Proposals</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of Service</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy Policy</a></li>
           </ul>
         </div>
 
@@ -533,10 +534,9 @@
   <script src="assets/js/main.js"></script>
 
   <!-- Inline JS Scripts -->
-
-  <!-- get current year for copyright -->
   <script defer>
-    document.getElementById('current-year').textContent = new Date().getFullYear();
+    // set the current year for copyright in footer
+    document.getElementById('current-year').textContent = (new Date()).getFullYear();
   </script>
 
 
