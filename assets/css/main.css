@@ -1638,6 +1638,13 @@ section,
   font-size: 14px;
 }
 
+/* Apply hover effect to the .bi icon when the parent <a> or <div> is hovered */
+.contact .info-item:hover .bi,
+.contact a:hover .bi {
+  background: color-mix(in srgb, var(--accent-color), transparent 20%);
+  color: var(--contrast-color);
+}
+
 .contact .php-email-form {
   height: 100%;
 }
