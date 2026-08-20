@@ -3,6 +3,7 @@
 		"*.css": "tailwindcss"
   },
   "cSpell.words": [
+    "componentized",
     "logfile",
     "Pala",
     "Roboto",
