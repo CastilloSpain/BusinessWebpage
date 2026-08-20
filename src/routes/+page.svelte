@@ -10,6 +10,8 @@
   import ScrollTop from '$lib/components/ScrollTop.svelte';
   import SectionDivider from '$lib/components/SectionDivider.svelte';
   import Team from '$lib/components/Team.svelte';
+
+  let mobileMenuOpen = $state(false);
 </script>
 
 <svelte:head>
@@ -52,7 +54,7 @@
   />
 </svelte:head>
 
-<Header />
+<Header onMenuOpenChange={(open) => (mobileMenuOpen = open)} />
 <main>
   <Hero />
   <About />
@@ -64,4 +66,4 @@
   <Contact />
 </main>
 <Footer />
-<ScrollTop />
+<ScrollTop hidden={mobileMenuOpen} />
