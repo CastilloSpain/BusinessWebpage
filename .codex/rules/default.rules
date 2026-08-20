@@ -1,0 +1,68 @@
+# Codex command-execution policy for the standalone static SvelteKit site.
+# Keep the destructive restrictions aligned with .claude/settings.json.
+
+prefix_rule(
+    pattern = ["git", ["branch", "switch", "checkout", "commit", "push", "merge", "rebase", "cherry-pick", "revert", "tag", "stash"]],
+    decision = "forbidden",
+    justification = "AGENTS.md: Git history and branch operations are human-owned.",
+)
+
+prefix_rule(
+    pattern = ["git", "reset", "--hard"],
+    decision = "forbidden",
+    justification = "Discards uncommitted work with no reliable recovery path.",
+)
+
+prefix_rule(
+    pattern = ["rm", "-rf", ["/", "/workspace", "/workspace/static", "/workspace/assets", "/workspace/stash"]],
+    decision = "forbidden",
+    justification = "Protect the filesystem, repository, runtime assets, and preserved source material.",
+)
+
+prefix_rule(
+    pattern = ["git", ["restore", "reset", "clean"]],
+    decision = "prompt",
+    justification = "Mutates or removes working-tree content.",
+)
+
+prefix_rule(
+    pattern = ["rm", "-rf"],
+    decision = "prompt",
+    justification = "Recursive deletion requires confirmation of the exact target.",
+)
+
+prefix_rule(
+    pattern = ["npm", ["install", "ci", "run", "test"]],
+    decision = "allow",
+    justification = "Project dependency, check, test, development, and build commands.",
+)
+
+prefix_rule(
+    pattern = ["npx"],
+    decision = "allow",
+    justification = "Runs project and Svelte tooling.",
+)
+
+prefix_rule(
+    pattern = ["sv"],
+    decision = "allow",
+    justification = "Svelte CLI.",
+)
+
+prefix_rule(
+    pattern = [["vite", "svelte-check", "tsc", "node"]],
+    decision = "allow",
+    justification = "SvelteKit development, validation, and build tooling.",
+)
+
+prefix_rule(
+    pattern = ["git", ["status", "diff", "log", "show", "ls-files", "blame"]],
+    decision = "allow",
+    justification = "Read-only Git inspection.",
+)
+
+prefix_rule(
+    pattern = [["ls", "cat", "head", "tail", "grep", "rg", "find"]],
+    decision = "allow",
+    justification = "Read-only filesystem inspection.",
+)
