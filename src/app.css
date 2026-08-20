@@ -1,0 +1,175 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-accent: #7cc576;
+  --font-sans: 'Roboto', system-ui, sans-serif;
+  --font-heading: 'Montserrat', sans-serif;
+  --font-nav: 'Poppins', sans-serif;
+}
+
+@layer base {
+  :root {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white font-sans text-[#555];
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading text-[#151515];
+  }
+  a,
+  button {
+    @apply transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent;
+  }
+  a {
+    @apply text-accent hover:text-accent/75;
+  }
+  section {
+    scroll-margin-top: 64px;
+  }
+}
+
+@layer components {
+  .site-container {
+    @apply mx-auto w-full max-w-330 px-3;
+  }
+  .page-section {
+    @apply overflow-clip py-15;
+  }
+  .dark-section {
+    @apply bg-[#060606] text-white;
+  }
+  .dark-section h1,
+  .dark-section h2,
+  .dark-section h3,
+  .dark-section h4 {
+    @apply text-white;
+  }
+  .section-title {
+    @apply relative mb-15 pb-5 text-center;
+  }
+  .section-title h2 {
+    @apply mb-5 text-[32px] font-bold;
+  }
+  .section-title p {
+    @apply mt-2;
+  }
+  .content-copy h3 {
+    @apply mb-3 text-[26px] font-bold;
+  }
+  .content-copy p {
+    @apply mb-4 leading-6;
+  }
+  .proposal-card {
+    box-shadow: 0 3px 20px -2px rgb(20 45 100 / 10%);
+  }
+  .slider-button {
+    @apply grid size-10 cursor-pointer place-items-center rounded-full border border-neutral-300 text-neutral-600 hover:border-accent hover:bg-accent hover:text-white;
+  }
+  .contact-item {
+    @apply flex items-start gap-4;
+  }
+  .contact-item h3 {
+    @apply mb-1 text-lg font-bold;
+  }
+  .contact-icon {
+    @apply grid size-11 shrink-0 place-items-center rounded bg-accent text-white transition-colors;
+  }
+  .contact-item:hover .contact-icon {
+    @apply bg-accent/80 text-white;
+  }
+  .footer-link {
+    @apply flex items-center gap-1 text-white/80 hover:text-accent;
+  }
+  .footer-link > svg {
+    @apply text-accent;
+  }
+  .social-button {
+    @apply grid size-10 cursor-pointer place-items-center rounded-full border border-white/20 text-white/70 hover:border-accent hover:text-accent;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    transition:
+      opacity 600ms ease-in-out,
+      transform 600ms ease-in-out;
+    will-change: opacity, transform;
+  }
+  .reveal[data-reveal='zoom-in'] {
+    transform: scale(0.6);
+  }
+  .reveal[data-reveal='zoom-out'] {
+    transform: scale(1.2);
+  }
+  .reveal[data-reveal-delay='100'] {
+    transition-delay: 100ms;
+  }
+  .reveal[data-reveal-delay='200'] {
+    transition-delay: 200ms;
+  }
+  .reveal[data-reveal-delay='300'] {
+    transition-delay: 300ms;
+  }
+  .reveal[data-reveal-delay='400'] {
+    transition-delay: 400ms;
+  }
+  .reveal[data-reveal-delay='500'] {
+    transition-delay: 500ms;
+  }
+  .reveal.reveal-visible {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .site-container {
+    max-width: 1140px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .site-container {
+    max-width: 960px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .site-container {
+    max-width: 720px;
+  }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  .site-container {
+    max-width: 540px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media (scripting: none) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .portfolio-layout {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}

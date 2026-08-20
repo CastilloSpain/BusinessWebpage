@@ -6,7 +6,7 @@
 
 ## 1. Mission
 
-This repository is a real-estate website being migrated from a static HTML template to a standalone SvelteKit application.
+This repository is a real-estate website migrated from a static HTML template to a standalone SvelteKit application.
 
 The immediate priority is a faithful, maintainable conversion of the existing site. Preserve its content, visual identity, URLs, metadata, responsive behavior, and working interactions while replacing page-level HTML duplication with Svelte components and typed local data. Do not redesign the site or add product scope unless the user asks.
 
@@ -14,16 +14,15 @@ The final application is entirely static and deploys to GitHub Pages through Git
 
 ## 2. Repository state
 
-The SvelteKit migration has not started yet. The current files are source material for the port:
+The SvelteKit scaffold and main-page migration are operational:
 
-- Root-level HTML pages: `index.html`, `portfolio-details.html`, `service-details.html`, and `starter-page.html`.
-- Shared browser assets under `assets/`, including the current stylesheet, JavaScript, images, fonts, and vendored libraries.
-- An existing [GitHub Pages workflow](.github/workflows/static.yml) that currently uploads the repository directly. It must be converted to install and build SvelteKit when the scaffold is introduced.
-- Original reference files under `stash/`. Treat these as preserved source material, not runtime application files.
+- The root-level npm package contains SvelteKit 2, Svelte 5, Tailwind CSS v4, TypeScript, and `adapter-static`.
+- The main page is composed from section components under `src/lib/components/` and typed local content under `src/lib/data/`.
+- Runtime images live under `static/assets/img/` and are referenced through SvelteKit path utilities.
+- Original reference files under `_legacy-starters/` and `stash/` are preserved source material, not runtime application files.
+- The [GitHub Pages workflow](.github/workflows/static.yml) installs, checks, builds, and uploads the generated `build/` directory.
 - A development container configured for Node, Svelte tooling, Claude Code, Codex, and port 2275.
 - A dual Claude Code/Codex assistant harness rooted in this file.
-
-Until the SvelteKit scaffold exists, do not claim it is operational. When the application layout changes, update this section and [§4](#4-target-application-shape) in the same change.
 
 ## 3. Target stack and deployment
 
@@ -32,7 +31,7 @@ Until the SvelteKit scaffold exists, do not claim it is operational. When the ap
 | Application | SvelteKit 2 with Svelte 5 | TypeScript and runes syntax |
 | Build target | `@sveltejs/adapter-static` | No production server runtime |
 | Package manager | npm | Root-level `package.json`, lockfile, and `node_modules/` |
-| Styling | Existing CSS first | Preserve the current design before considering a styling migration |
+| Styling | Tailwind CSS v4 | Preserve the current design with utilities and a small global component layer |
 | Hosting | GitHub Pages | Deployment is performed by GitHub Actions |
 | Source content | Repository files | No runtime content service |
 
@@ -40,7 +39,7 @@ Do not introduce another frontend framework, a server runtime, a database, or a 
 
 ## 4. Target application shape
 
-The intended root-level SvelteKit layout is:
+The root-level SvelteKit layout is:
 
 ```text
 /

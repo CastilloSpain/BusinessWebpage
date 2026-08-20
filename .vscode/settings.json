@@ -1,0 +1,13 @@
+{
+	"files.associations": {
+		"*.css": "tailwindcss"
+  },
+  "cSpell.words": [
+    "logfile",
+    "Pala",
+    "Roboto",
+    "Seegar",
+    "vercel",
+    "vite"
+  ]
+}
