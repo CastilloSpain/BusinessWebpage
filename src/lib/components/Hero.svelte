@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { asset } from '$app/paths';
+  import { asset, resolve } from '$app/paths';
 </script>
 
 <section
@@ -18,7 +18,7 @@
     </h1>
     <a
       class="inline-block rounded bg-accent px-10 py-3 text-[15px] font-normal tracking-[1px] text-white uppercase hover:bg-[#8bcd85]"
-      href="#about">Get Started</a
+      href={resolve('/#about')}>Get Started</a
     >
   </div>
 </section>

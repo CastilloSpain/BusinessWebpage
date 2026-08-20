@@ -6,6 +6,11 @@
   import Card from './Card.svelte';
   import Section from './Section.svelte';
 
+  const carouselControls = [
+    { direction: -1, label: 'Previous team members' },
+    { direction: 1, label: 'Next team members' }
+  ] as const;
+
   let carouselViewport: HTMLDivElement;
 
   $effect(() => {
@@ -47,20 +52,26 @@
   }
 </script>
 
+{#snippet carouselIcon(direction: -1 | 1)}
+  {#if direction === -1}
+    <ArrowLeftIcon size={24} />
+  {:else}
+    <ArrowRightIcon size={24} />
+  {/if}
+{/snippet}
+
 <Section id="team" title="Team">
   <div class="mb-3 flex justify-end gap-2">
-    <button
-      class="slider-button"
-      type="button"
-      aria-label="Previous team members"
-      onclick={() => move(-1)}><ArrowLeftIcon size={24} /></button
-    >
-    <button
-      class="slider-button"
-      type="button"
-      aria-label="Next team members"
-      onclick={() => move(1)}><ArrowRightIcon size={24} /></button
-    >
+    {#each carouselControls as control (control.direction)}
+      <button
+        class="slider-button"
+        type="button"
+        aria-label={control.label}
+        onclick={() => move(control.direction)}
+      >
+        {@render carouselIcon(control.direction)}
+      </button>
+    {/each}
   </div>
   <div
     class="reveal overflow-hidden scroll-smooth"

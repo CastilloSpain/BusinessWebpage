@@ -1,3 +1,7 @@
+<script lang="ts">
+  import { resolve } from '$app/paths';
+</script>
+
 <section class="dark-section page-section bg-black">
   <div
     class="site-container reveal grid items-center gap-6 xl:grid-cols-4"
@@ -11,7 +15,7 @@
     <div class="text-center">
       <a
         class="inline-block rounded-full border-2 border-accent px-10 py-3 font-semibold text-white hover:bg-accent"
-        href="#proposals">Our Proposals</a
+        href={resolve('/#proposals')}>Our Proposals</a
       >
     </div>
   </div>

@@ -2,11 +2,9 @@
   import { asset } from '$app/paths';
   import type { Attachment } from 'svelte/attachments';
   import { properties } from '$lib/data/site';
-  import ArrowLeftIcon from '$lib/icons/ArrowLeftIcon.svelte';
-  import ArrowRightIcon from '$lib/icons/ArrowRightIcon.svelte';
-  import CloseIcon from '$lib/icons/CloseIcon.svelte';
   import ZoomIcon from '$lib/icons/ZoomIcon.svelte';
   import Card from './Card.svelte';
+  import Lightbox from './Lightbox.svelte';
   import Section from './Section.svelte';
 
   const filters = [
@@ -30,6 +28,8 @@
   let lightboxIndex = $state<number | null>(null);
   let masonryWidth = $state(0);
   let layoutReady = $state(false);
+  let lightboxTrigger: HTMLButtonElement | null = null;
+  let lightboxOpenedWithPointer = false;
   let visibleProperties = $derived(
     activeFilter === 'all'
       ? properties
@@ -101,8 +101,23 @@
     activeFilter = activeFilter === filter ? 'all' : filter;
   }
 
+  function openLightbox(event: MouseEvent, property: Property) {
+    if (!(event.currentTarget instanceof HTMLButtonElement)) return;
+
+    lightboxTrigger = event.currentTarget;
+    lightboxOpenedWithPointer = event.detail > 0;
+    lightboxIndex = visibleProperties.indexOf(property);
+  }
+
   function closeLightbox() {
+    if (lightboxOpenedWithPointer) {
+      if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+    } else {
+      lightboxTrigger?.focus();
+    }
+
     lightboxIndex = null;
+    lightboxTrigger = null;
   }
 
   function moveLightbox(direction: -1 | 1) {
@@ -195,8 +210,7 @@
                 type="button"
                 class="absolute top-1/2 right-12 -translate-y-1/2 cursor-pointer leading-none text-[#555]/70 hover:text-accent"
                 aria-label={`View larger image of ${property.title}`}
-                onclick={() => (lightboxIndex = visibleProperties.indexOf(property))}
-                ><ZoomIcon size={26} /></button
+                onclick={(event) => openLightbox(event, property)}><ZoomIcon size={26} /></button
               >
             </div>
           </Card>
@@ -204,40 +218,5 @@
       </div>
     </div>
   </div>
+  <Lightbox item={selectedProperty} onclose={closeLightbox} onmove={moveLightbox} />
 </Section>
-
-{#if selectedProperty}
-  <div
-    class="fixed inset-0 z-1000 grid place-items-center bg-black/95 p-4"
-    role="dialog"
-    aria-modal="true"
-    aria-label={`${selectedProperty.title} image preview`}
-  >
-    <button
-      class="absolute top-5 right-5 text-white/80 hover:text-white"
-      type="button"
-      aria-label="Close preview"
-      onclick={closeLightbox}><CloseIcon size={34} /></button
-    >
-    <button
-      class="absolute left-3 cursor-pointer text-white/80 hover:text-white md:left-8"
-      type="button"
-      aria-label="Previous image"
-      onclick={() => moveLightbox(-1)}><ArrowLeftIcon size={38} /></button
-    >
-    <figure class="max-h-[90vh] max-w-5xl text-center">
-      <img
-        class="max-h-[82vh] max-w-full object-contain"
-        src={asset(selectedProperty.image)}
-        alt={`${selectedProperty.title}, Dallas`}
-      />
-      <figcaption class="mt-3 font-heading text-white">{selectedProperty.title}</figcaption>
-    </figure>
-    <button
-      class="absolute right-3 cursor-pointer text-white/80 hover:text-white md:right-8"
-      type="button"
-      aria-label="Next image"
-      onclick={() => moveLightbox(1)}><ArrowRightIcon size={38} /></button
-    >
-  </div>
-{/if}

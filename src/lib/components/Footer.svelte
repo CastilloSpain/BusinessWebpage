@@ -1,11 +1,20 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
   import ChevronRightIcon from '$lib/icons/ChevronRightIcon.svelte';
-  import FacebookIcon from '$lib/icons/FacebookIcon.svelte';
-  import InstagramIcon from '$lib/icons/InstagramIcon.svelte';
-  import TwitterIcon from '$lib/icons/TwitterIcon.svelte';
+  import SocialLinks from './SocialLinks.svelte';
 
   const year = new Date().getFullYear();
+  const footerLinks = [
+    { label: 'Home', href: '#hero' },
+    { label: 'About us', href: '#about' },
+    { label: 'Proposals', href: '#proposals' },
+    { label: 'Terms of Service', href: '#hero' },
+    { label: 'Privacy Policy', href: '#hero' }
+  ] as const;
+  const credits = [
+    { prefix: 'Designed by', label: 'BootstrapMade', href: 'https://bootstrapmade.com/' },
+    { prefix: 'Administered by', label: 'Adam Pala', href: 'https://adam-pala.com/' }
+  ] as const;
 </script>
 
 <footer class="dark-section bg-black pt-12.5 text-sm">
@@ -24,37 +33,18 @@
     <div>
       <h2 class="mb-4 text-base font-bold text-white">Useful Links</h2>
       <ul class="space-y-3">
-        <li>
-          <a class="footer-link" href={resolve('/#hero')}><ChevronRightIcon size={15} />Home</a>
-        </li>
-        <li>
-          <a class="footer-link" href={resolve('/#about')}><ChevronRightIcon size={15} />About us</a
-          >
-        </li>
-        <li>
-          <a class="footer-link" href={resolve('/#proposals')}
-            ><ChevronRightIcon size={15} />Proposals</a
-          >
-        </li>
-        <li>
-          <a class="footer-link" href={resolve('/#hero')}
-            ><ChevronRightIcon size={15} />Terms of Service</a
-          >
-        </li>
-        <li>
-          <a class="footer-link" href={resolve('/#hero')}
-            ><ChevronRightIcon size={15} />Privacy Policy</a
-          >
-        </li>
+        {#each footerLinks as link (link.label)}
+          <li>
+            <a class="footer-link" href={resolve(`/${link.href}`)}
+              ><ChevronRightIcon size={15} />{link.label}</a
+            >
+          </li>
+        {/each}
       </ul>
     </div>
     <div>
       <h2 class="mb-4 text-base font-bold text-white">Follow Us</h2>
-      <div class="flex gap-3" aria-label="Social media">
-        <span class="social-button" title="X / Twitter"><TwitterIcon /></span>
-        <span class="social-button" title="Facebook"><FacebookIcon /></span>
-        <span class="social-button" title="Instagram"><InstagramIcon /></span>
-      </div>
+      <SocialLinks class="flex gap-3" buttonStyle />
     </div>
   </div>
   <div class="site-container border-t border-white/10 py-6 text-center leading-6">
@@ -62,14 +52,11 @@
       © Copyright {year} <strong class="text-white">Castillo Real Estate Group Holdings LLC</strong>
     </p>
     <p>All Rights Reserved</p>
-    <p>
-      Designed by <a href="https://bootstrapmade.com/" rel="noreferrer" target="_blank"
-        >BootstrapMade</a
-      >
-    </p>
-    <p>
-      Administered by <a href="https://adam-pala.com/" rel="noreferrer" target="_blank">Adam Pala</a
-      >
-    </p>
+    {#each credits as credit (credit.href)}
+      <p>
+        <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- External credits are not app routes. -->
+        {credit.prefix} <a href={credit.href} rel="noreferrer" target="_blank">{credit.label}</a>
+      </p>
+    {/each}
   </div>
 </footer>

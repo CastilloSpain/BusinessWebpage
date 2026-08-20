@@ -3,10 +3,8 @@
   import { navItems } from '$lib/data/site';
   import CastleLogoIcon from '$lib/icons/CastleLogoIcon.svelte';
   import CloseIcon from '$lib/icons/CloseIcon.svelte';
-  import FacebookIcon from '$lib/icons/FacebookIcon.svelte';
-  import InstagramIcon from '$lib/icons/InstagramIcon.svelte';
   import MenuIcon from '$lib/icons/MenuIcon.svelte';
-  import TwitterIcon from '$lib/icons/TwitterIcon.svelte';
+  import SocialLinks from './SocialLinks.svelte';
 
   let { onMenuOpenChange }: { onMenuOpenChange?: (open: boolean) => void } = $props();
   let menuOpen = $state(false);
@@ -102,13 +100,9 @@
       </div>
     </nav>
 
-    <div
+    <SocialLinks
       class="order-2 ml-auto flex items-center gap-3 pr-3.75 text-white/60 xl:ml-0"
-      aria-label="Social media"
-    >
-      <span title="X / Twitter"><TwitterIcon size={15} /></span>
-      <span title="Facebook"><FacebookIcon size={15} /></span>
-      <span title="Instagram"><InstagramIcon size={15} /></span>
-    </div>
+      iconSize={15}
+    />
   </div>
 </header>
