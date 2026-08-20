@@ -3,22 +3,6 @@ export type NavItem = {
   href: `#${string}`;
 };
 
-export type Property = {
-  title: string;
-  category: 'cedars' | 'oak' | 'bishop' | 'west';
-  image: `/assets/img/properties/${string}`;
-  width: number;
-  height: number;
-  description: string;
-};
-
-export type TeamMember = {
-  name: string;
-  role: string;
-  image: `/assets/img/team/${string}`;
-  description: string;
-};
-
 export const navItems: NavItem[] = [
   { label: 'Home', href: '#hero' },
   { label: 'About', href: '#about' },
@@ -27,6 +11,15 @@ export const navItems: NavItem[] = [
   { label: 'Team', href: '#team' },
   { label: 'Contact', href: '#contact' }
 ];
+
+export type Property = {
+  title: string;
+  category: 'cedars' | 'oak' | 'bishop' | 'west';
+  image: `/assets/img/properties/${string}`;
+  width: number;
+  height: number;
+  description: string;
+};
 
 export const properties: Property[] = [
   {
@@ -63,7 +56,12 @@ export const properties: Property[] = [
   }
 ];
 
-export const proposals = [
+export type Proposal = {
+  title: string;
+  description: string;
+};
+
+export const proposals: Proposal[] = [
   {
     title: 'Joint Ventures',
     description:
@@ -79,7 +77,14 @@ export const proposals = [
     description:
       'Multifamily, office, retail, industrial, mixed use, we are able to look at any commercial asset type, as long as the strategy makes sense. This includes qualified joint venture rental real estate.'
   }
-] as const;
+];
+
+export type TeamMember = {
+  name: string;
+  role: string;
+  image: `/assets/img/team/${string}`;
+  description: string;
+};
 
 export const teamMembers: TeamMember[] = [
   {
