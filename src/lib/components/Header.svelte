@@ -1,12 +1,14 @@
 <script lang="ts">
-  import { asset, resolve } from '$app/paths';
+  import { resolve } from '$app/paths';
   import { navItems } from '$lib/data/site';
+  import CastleLogoIcon from '$lib/icons/CastleLogoIcon.svelte';
   import CloseIcon from '$lib/icons/CloseIcon.svelte';
   import FacebookIcon from '$lib/icons/FacebookIcon.svelte';
   import InstagramIcon from '$lib/icons/InstagramIcon.svelte';
   import MenuIcon from '$lib/icons/MenuIcon.svelte';
   import TwitterIcon from '$lib/icons/TwitterIcon.svelte';
 
+  let { onMenuOpenChange }: { onMenuOpenChange?: (open: boolean) => void } = $props();
   let menuOpen = $state(false);
   let scrollY = $state(0);
   let activeSection = $state('#hero');
@@ -30,7 +32,12 @@
   });
 
   function closeMenu() {
-    menuOpen = false;
+    setMenuOpen(false);
+  }
+
+  function setMenuOpen(open: boolean) {
+    menuOpen = open;
+    onMenuOpenChange?.(open);
   }
 </script>
 
@@ -44,20 +51,25 @@
 >
   <div class="site-container flex items-center justify-between">
     <a href={resolve('/')} class="order-1 shrink-0" aria-label="Castillo Real Estate Group home">
-      <img
-        class="h-9 w-15"
-        src={asset('/assets/img/logo.svg')}
-        alt="Castillo Real Estate Group"
-      />
+      <CastleLogoIcon class="h-9 w-15 text-white" />
     </a>
 
     <nav class="order-3 xl:order-2" aria-label="Primary navigation">
+      {#if menuOpen}
+        <button
+          type="button"
+          class="fixed inset-0 z-30 cursor-default bg-black/30 xl:hidden"
+          aria-label="Close navigation"
+          onclick={closeMenu}
+        ></button>
+      {/if}
       <button
         type="button"
         class="relative z-50 grid size-9 place-items-center text-white xl:hidden"
         aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
         aria-expanded={menuOpen}
-        onclick={() => (menuOpen = !menuOpen)}
+        aria-controls="primary-navigation-menu"
+        onclick={() => setMenuOpen(!menuOpen)}
       >
         {#if menuOpen}
           <CloseIcon size={28} />
@@ -67,8 +79,9 @@
       </button>
 
       <div
+        id="primary-navigation-menu"
         class={[
-          'fixed inset-5 top-15 rounded-md bg-white p-5 shadow-xl transition-all xl:static xl:block xl:bg-transparent xl:p-0 xl:shadow-none',
+          'fixed inset-x-5 top-15 bottom-auto z-40 max-h-[calc(100vh-5rem)] overflow-y-auto rounded-md bg-white p-5 shadow-xl transition-all xl:static xl:block xl:max-h-none xl:overflow-visible xl:bg-transparent xl:p-0 xl:shadow-none',
           menuOpen ? 'visible opacity-100' : 'invisible opacity-0 xl:visible xl:opacity-100'
         ]}
       >
