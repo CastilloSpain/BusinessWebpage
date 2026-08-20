@@ -1,0 +1,93 @@
+{
+  "name": "Castillo Real Estate - Development Environment",
+
+  "image": "mcr.microsoft.com/devcontainers/base:trixie",
+
+  // container configs
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "containerUser": "root",
+  "remoteUser": "root",
+  "shutdownAction": "stopContainer",
+  "runArgs": [
+    // create named container
+    "--name", "castillo-real-estate-dev-env",
+    // define container restart policy
+    "--restart", "unless-stopped",
+    // publish app ports on the host
+    "--publish", "2275:2275", // phoneword 'CARL' (SvelteKit UI)
+  ],
+
+  "features": {
+    "ghcr.io/devcontainers/features/node:2.1.0": {
+      "version": "lts",
+    },
+    "ghcr.io/devcontainers-extra/features/typescript:2": {
+      "version": "latest",
+    },
+    "ghcr.io/devcontainers/features/github-cli:1.1.1": {},
+    "ghcr.io/devcontainers-extra/features/claude-code:2.0.3": {},
+    "ghcr.io/jsburckhardt/devcontainer-features/codex:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2.5.9": {
+      "installZsh": true,
+      "installOhMyZsh": true,
+    },
+  },
+
+  "mounts": [
+    // container environment setup script (bind mount)
+    "source=${localWorkspaceFolder}/.devcontainer/scripts/setup-env.sh,target=/scripts/setup-env.sh,type=bind",
+    // Node caches (volumes)
+    "source=castillo-real-estate_npm-cache,target=/root/.npm,type=volume",
+    "source=castillo-real-estate_nvm-global,target=/usr/local/share/nvm,type=volume",
+    "source=castillo-real-estate_npm-global,target=/usr/local/lib/node_modules,type=volume",
+    "source=castillo-real-estate_npm-bin,target=/usr/local/bin,type=volume",
+    // UI app dependencies (volume)
+    "source=castillo-real-estate_ui-node-modules,target=/workspace/node_modules,type=volume",
+    // CLI auth/state persistence (volumes)
+    "source=castillo-real-estate_gh-config,target=/root/.config/gh,type=volume",
+    "source=castillo-real-estate_claude-config,target=/root/.claude,type=volume",
+    "source=castillo-real-estate_codex-config,target=/root/.codex,type=volume",
+  ],
+
+  // run setup-env.sh companion script immediately upon container launch
+  "postCreateCommand": "chmod +x /scripts/setup-env.sh && bash /scripts/setup-env.sh",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "mads-hartmann.bash-ide-vscode",
+        "rogalmic.bash-debug",
+        "yandeu.five-server",
+        "oderwat.indent-rainbow",
+        "mechatroner.rainbow-csv",
+        "gxl.git-graph-3",
+        "postman.postman-for-vscode",
+        "anthropic.claude-code",
+        "openai.chatgpt",
+        "docker.docker",
+        "tamasfe.even-better-toml",
+        "mermaidchart.vscode-mermaid-chart",
+        "bradlc.vscode-tailwindcss",
+        "svelte.svelte-vscode",
+        "streetsidesoftware.code-spell-checker",
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
+        "[*]": {
+          "editor.tabSize": 2,
+          "editor.insertSpaces": true,
+        },
+      },
+    },
+  },
+
+  "forwardPorts": [2275],
+  "portsAttributes": {
+    "2275": { "label": "SvelteKit Dev Server", "onAutoForward": "notify" }, // phoneword 'CARL'
+  },
+}
