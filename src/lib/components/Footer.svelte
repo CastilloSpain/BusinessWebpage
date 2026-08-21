@@ -15,6 +15,7 @@
     { prefix: 'Designed by', label: 'BootstrapMade', href: 'https://bootstrapmade.com/' },
     { prefix: 'Administered by', label: 'Adam Pala', href: 'https://adam-pala.com/' }
   ] as const;
+  const CREDITS_SEPARATOR = ' | ';
 </script>
 
 <footer class="dark-section bg-black pt-12.5 text-sm">
@@ -52,11 +53,12 @@
       © Copyright {year} <strong class="text-white">Castillo Real Estate Group Holdings LLC</strong>
     </p>
     <p>All Rights Reserved</p>
-    {#each credits as credit (credit.href)}
-      <p>
+    <p>
+      {#each credits as credit, index (credit.href)}
+        {#if index > 0}{CREDITS_SEPARATOR}{/if}
         <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- External credits are not app routes. -->
         {credit.prefix} <a href={credit.href} rel="noreferrer" target="_blank">{credit.label}</a>
-      </p>
-    {/each}
+      {/each}
+    </p>
   </div>
 </footer>
