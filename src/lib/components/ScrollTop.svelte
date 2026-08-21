@@ -11,7 +11,7 @@
   type="button"
   {hidden}
   class={[
-    'fixed right-3.75 bottom-3.75 z-50 grid size-10 place-items-center rounded bg-accent text-white transition-all hover:bg-accent/80',
+    'fixed right-3.75 bottom-3.75 z-50 grid size-10 cursor-pointer place-items-center rounded bg-accent text-white transition-all hover:bg-accent/80',
     scrollY > 100 && !hidden ? 'visible opacity-100' : 'invisible translate-y-3 opacity-0'
   ]}
   aria-hidden={hidden}
