@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import SectionTitle from './SectionTitle.svelte';
 
   type Props = {
     id: string;
@@ -15,9 +14,10 @@
 
 <section {id} class={['page-section', className]}>
   <div class="site-container">
-    <SectionTitle {title}>
+    <div class="section-title reveal">
+      <h2>{title}</h2>
       {#if intro}{@render intro()}{/if}
-    </SectionTitle>
+    </div>
     {@render children()}
   </div>
 </section>
