@@ -42,7 +42,7 @@ fi
 
 # write dedicated /root/.bash_aliases entries
 if ! grep -q '^export web=' "$BASH_ALIASES" 2>/dev/null; then
-  echo 'export web="/workspace/src"' >> "$BASH_ALIASES"
+  echo 'export web="/workspace"' >> "$BASH_ALIASES"
 fi
 if ! grep -q '^alias pe=' "$BASH_ALIASES" 2>/dev/null; then
   echo "alias pe='printenv'" >> "$BASH_ALIASES"
@@ -72,10 +72,10 @@ fi
 
 # app (SvelteKit 2)
 echo "--- Installing app dependencies ---"
-if [ -f "${WORKSPACE_DIR}/src/package.json" ]; then
-  npm ci --prefix "${WORKSPACE_DIR}/src" 2>&1 || echo "src npm ci failed"
+if [ -f "${WORKSPACE_DIR}/package.json" ]; then
+  npm ci --prefix "${WORKSPACE_DIR}" 2>&1 || echo "npm ci failed"
 else
-  echo "src/package.json not found — skipping"
+  echo "package.json not found — skipping"
 fi
 
 echo
