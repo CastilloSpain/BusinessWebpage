@@ -47,7 +47,7 @@
     aria-label={`${item.title} image preview`}
   >
     <button
-      class="absolute top-5 right-5 text-white/80 hover:text-white"
+      class="absolute top-5 right-5 cursor-pointer text-white/80 hover:text-white"
       type="button"
       aria-label="Close preview"
       onclick={onclose}><CloseIcon size={34} /></button
