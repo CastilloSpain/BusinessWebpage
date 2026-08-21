@@ -3,7 +3,7 @@ export type NavItem = {
   href: `#${string}`;
 };
 
-export const navItems: NavItem[] = [
+export const homePageNavItems: NavItem[] = [
   { label: 'Home', href: '#hero' },
   { label: 'About', href: '#about' },
   { label: 'Properties', href: '#portfolio' },

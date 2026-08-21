@@ -1,6 +1,7 @@
 <script lang="ts">
   import HomePage from '$lib/components/HomePage.svelte';
   import Layout from '$lib/components/Layout.svelte';
+  import { homePageNavItems } from '$lib/data/site';
 </script>
 
 <svelte:head>
@@ -43,6 +44,6 @@
   />
 </svelte:head>
 
-<Layout>
+<Layout navItems={homePageNavItems}>
   <HomePage />
 </Layout>

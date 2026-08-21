@@ -1,15 +1,20 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import { navItems } from '$lib/data/site';
+  import type { NavItem } from '$lib/data/site';
   import CastleLogoIcon from '$lib/icons/CastleLogoIcon.svelte';
   import CloseIcon from '$lib/icons/CloseIcon.svelte';
   import MenuIcon from '$lib/icons/MenuIcon.svelte';
   import SocialLinks from './SocialLinks.svelte';
 
-  let { onMenuOpenChange }: { onMenuOpenChange?: (open: boolean) => void } = $props();
+  type Props = {
+    navItems?: readonly NavItem[];
+    onMenuOpenChange?: (open: boolean) => void;
+  };
+
+  let { navItems = [], onMenuOpenChange }: Props = $props();
   let menuOpen = $state(false);
   let scrollY = $state(0);
-  let activeSection = $state('#hero');
+  let activeSection = $state('');
 
   $effect(() => {
     const sections = navItems
@@ -52,53 +57,55 @@
       <CastleLogoIcon class="h-9 w-15 text-white" />
     </a>
 
-    <nav class="order-3 xl:order-2" aria-label="Primary navigation">
-      {#if menuOpen}
+    {#if navItems.length > 0}
+      <nav class="order-3 xl:order-2" aria-label="Primary navigation">
+        {#if menuOpen}
+          <button
+            type="button"
+            class="fixed inset-0 z-30 cursor-default bg-black/30 xl:hidden"
+            aria-label="Close navigation"
+            onclick={closeMenu}
+          ></button>
+        {/if}
         <button
           type="button"
-          class="fixed inset-0 z-30 cursor-default bg-black/30 xl:hidden"
-          aria-label="Close navigation"
-          onclick={closeMenu}
-        ></button>
-      {/if}
-      <button
-        type="button"
-        class="relative z-50 grid size-9 place-items-center text-white xl:hidden"
-        aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
-        aria-expanded={menuOpen}
-        aria-controls="primary-navigation-menu"
-        onclick={() => setMenuOpen(!menuOpen)}
-      >
-        {#if menuOpen}
-          <CloseIcon size={28} />
-        {:else}
-          <MenuIcon size={28} />
-        {/if}
-      </button>
+          class="relative z-50 grid size-9 place-items-center text-white xl:hidden"
+          aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+          aria-expanded={menuOpen}
+          aria-controls="primary-navigation-menu"
+          onclick={() => setMenuOpen(!menuOpen)}
+        >
+          {#if menuOpen}
+            <CloseIcon size={28} />
+          {:else}
+            <MenuIcon size={28} />
+          {/if}
+        </button>
 
-      <div
-        id="primary-navigation-menu"
-        class={[
-          'fixed inset-x-5 top-15 bottom-auto z-40 max-h-[calc(100vh-5rem)] overflow-y-auto rounded-md bg-white p-5 shadow-xl transition-all xl:static xl:block xl:max-h-none xl:overflow-visible xl:bg-transparent xl:p-0 xl:shadow-none',
-          menuOpen ? 'visible opacity-100' : 'invisible opacity-0 xl:visible xl:opacity-100'
-        ]}
-      >
-        <ul class="flex flex-col xl:flex-row xl:items-center">
-          {#each navItems as item (item.href)}
-            <li>
-              <a
-                href={resolve(`/${item.href}`)}
-                class={[
-                  'block px-5 py-3 font-nav text-[16px] whitespace-nowrap text-neutral-700 transition-colors hover:text-accent xl:px-3.75 xl:py-4.5 xl:text-white/60',
-                  activeSection === item.href && 'text-accent!'
-                ]}
-                onclick={closeMenu}>{item.label}</a
-              >
-            </li>
-          {/each}
-        </ul>
-      </div>
-    </nav>
+        <div
+          id="primary-navigation-menu"
+          class={[
+            'fixed inset-x-5 top-15 bottom-auto z-40 max-h-[calc(100vh-5rem)] overflow-y-auto rounded-md bg-white p-5 shadow-xl transition-all xl:static xl:block xl:max-h-none xl:overflow-visible xl:bg-transparent xl:p-0 xl:shadow-none',
+            menuOpen ? 'visible opacity-100' : 'invisible opacity-0 xl:visible xl:opacity-100'
+          ]}
+        >
+          <ul class="flex flex-col xl:flex-row xl:items-center">
+            {#each navItems as item (item.href)}
+              <li>
+                <a
+                  href={resolve(`/${item.href}`)}
+                  class={[
+                    'block px-5 py-3 font-nav text-[16px] whitespace-nowrap text-neutral-700 transition-colors hover:text-accent xl:px-3.75 xl:py-4.5 xl:text-white/60',
+                    activeSection === item.href && 'text-accent!'
+                  ]}
+                  onclick={closeMenu}>{item.label}</a
+                >
+              </li>
+            {/each}
+          </ul>
+        </div>
+      </nav>
+    {/if}
 
     <SocialLinks
       class="order-2 ml-auto flex items-center gap-3 pr-3.75 text-white/60 xl:ml-0"
